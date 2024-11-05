@@ -107,6 +107,4 @@ describe("User Information ", () => {
     })
     expect(response.statusCode).toBe(200);
   })
-
-  
 });
