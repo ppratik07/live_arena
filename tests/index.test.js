@@ -61,7 +61,7 @@ describe("Authentication", () => {
   });
 });
 
-describe("User Information ", () => {
+describe("User meta data endpoints", () => {
   let token = "";
   let avatarId="";
   beforeAll(async () => {
@@ -107,4 +107,11 @@ describe("User Information ", () => {
     })
     expect(response.statusCode).toBe(200);
   })
+  test("User is not able to update their metadata if the auth header is not present",async()=>{
+    const response = await axios.post(`${BACKEND_URL}/api/v1/user/metadata`,{
+        avatarId
+    })
+    expect(response.statusCode).toBe(403);
+  })
+
 });
