@@ -164,4 +164,12 @@ describe("User avatar information", () => {
     expect(response.data.avatars.length).toBe(1);
     expect(response.data.avatars[0].userId).toBe(userId);
   });
+
+  test("Available avatar lists the recently created avatar",async()=>{
+    const response = await axios.get(`${BACKEND_URL}/api/v1/avatars`);
+    expect(response.data.avatars.length).not.toBe(0);
+    const currentAvatar = response.data.avatar.find(x=>x.id ==avatarId);
+    expect(currentAvatar).toBeDefined();
+  })
+
 });
