@@ -171,5 +171,23 @@ describe("User avatar information", () => {
     const currentAvatar = response.data.avatar.find(x=>x.id ==avatarId);
     expect(currentAvatar).toBeDefined();
   })
-
 });
+
+describe("Space information",()=>{
+   beforeAll(async()=>{
+    const username = `Pratik-${Math.random()}`;
+    const password = "1234";
+    const signupRespone = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
+      username,
+      password,
+      type: "admin",
+    });
+    userId = signupRespone.data.userId;
+    const response = await axios.post(`${BACKEND_URL}/api/v1/signin`, {
+      username,
+      password,
+    });
+    token = response.data.token;
+
+   })
+})
