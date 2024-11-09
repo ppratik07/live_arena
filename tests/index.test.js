@@ -165,29 +165,119 @@ describe("User avatar information", () => {
     expect(response.data.avatars[0].userId).toBe(userId);
   });
 
-  test("Available avatar lists the recently created avatar",async()=>{
+  test("Available avatar lists the recently created avatar", async () => {
     const response = await axios.get(`${BACKEND_URL}/api/v1/avatars`);
     expect(response.data.avatars.length).not.toBe(0);
-    const currentAvatar = response.data.avatar.find(x=>x.id ==avatarId);
+    const currentAvatar = response.data.avatar.find((x) => x.id == avatarId);
     expect(currentAvatar).toBeDefined();
-  })
+  });
 });
 
-describe("Space information",()=>{
-   beforeAll(async()=>{
+describe("Space information", () => {
+  let mapId;
+  let element1Id;
+  let element2Id;
+  let adminToken;
+  let adminId;
+  let userToken;
+  let userId;
+  beforeAll(async () => {
     const username = `Pratik-${Math.random()}`;
     const password = "1234";
+    //admin Login
     const signupRespone = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
       username,
       password,
       type: "admin",
     });
-    userId = signupRespone.data.userId;
+    adminId = signupRespone.data.userId;
+
     const response = await axios.post(`${BACKEND_URL}/api/v1/signin`, {
       username,
       password,
     });
-    token = response.data.token;
+    adminToken = response.data.token;
+    // User Login
+    const userSignupRespone = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
+      username,
+      password,
+      type: "admin",
+    });
+    userId = userSignupRespone.data.userId;
 
-   })
-})
+    const userSignInresponse = await axios.post(
+      `${BACKEND_URL}/api/v1/signin`,
+      {
+        username,
+        password,
+      }
+    );
+    userToken = userSignInresponse.data.token;
+    const element1Id = await axios.post(
+      `${BACKEND_URL}/api/v1/admin/element`,
+      {
+        imageUrl:
+          "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRCRca3wAR4zjPPTzeIY9rSwbbqB6bB2hVkoTXN4eerXOIkJTG1GpZ9ZqSGYafQPToWy_JTcmV5RHXsAsWQC3tKnMlH_CsibsSZ5oJtbakq&usqp=CAE",
+        width: 1,
+        height: 1,
+        static: true,
+      },
+      {
+        headers: {
+          authorization: `Bearer ${adminToken}`,
+        },
+      }
+    );
+    const element2Id = await axios.post(
+      `${BACKEND_URL}/api/v1/admin/element`,
+      {
+        imageUrl:
+          "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRCRca3wAR4zjPPTzeIY9rSwbbqB6bB2hVkoTXN4eerXOIkJTG1GpZ9ZqSGYafQPToWy_JTcmV5RHXsAsWQC3tKnMlH_CsibsSZ5oJtbakq&usqp=CAE",
+        width: 1,
+        height: 1,
+        static: true,
+      },
+      {
+        headers: {
+          authorization: `Bearer ${adminToken}`,
+        },
+      }
+    );
+    element1Id = element1.id;
+    element2Id = element2.id;
+
+    const map = await axios.post(
+      `${BACKEND_URL}/api/v1/admin/map`,
+      {
+        thumbnail: "https://thumbnail.com/a.png",
+        dimensions: "100x200",
+        name: "100 person interview room",
+        defaultElements: [
+          {
+            elementId: element1Id,
+            x: 20,
+            y: 20,
+          },
+          {
+            elementId: element1Id,
+            x: 18,
+            y: 20,
+          },
+          {
+            elementId: element2Id,
+            x: 19,
+            y: 20,
+          },
+        ],
+      },
+      {
+        headers: {
+          authorization: `Bearer ${adminToken}`,
+        },
+      }
+    );
+    mapId = map.id;
+  });
+
+  
+});
