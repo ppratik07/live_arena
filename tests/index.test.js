@@ -279,5 +279,7 @@ describe("Space information", () => {
     mapId = map.id;
   });
 
-  
+  test("User is able to create a space",async()=>{
+    
+  })
 });
