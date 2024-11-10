@@ -279,7 +279,11 @@ describe("Space information", () => {
     mapId = map.id;
   });
 
-  test("User is able to create a space",async()=>{
-    
+  test("User is not able to create a space without mapId and dimensions",async()=>{
+        const response = await axios.post(`${BACKEND_URL}/api/v1/space`{
+            "name": "Test",
+        })
+        expect(response.statusCode).toBe(400);
   })
+
 });
