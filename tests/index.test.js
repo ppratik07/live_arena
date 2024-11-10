@@ -278,12 +278,38 @@ describe("Space information", () => {
     );
     mapId = map.id;
   });
+test("User is able to create a space",async()=>{
+    const response = await axios.post(`${BACKEND_URL}/api/v1/space`,{
+        "name":"Test",
+        "dimensions": "100*200",
+        "mapId": mapId
+    },{
+        headers:{
+            authorization : `Bearer ${userToken}`
+        }
+    })
+    expect(response.spaceId).toBeDefined();
+})
+test("User is able to create a space without mapId (empty space)",async()=>{
+    const response = await axios.post(`${BACKEND_URL}/api/v1/space`,{
+        "name" : "Test",
+        "dimensions" : "100x200",
+    })
+    expect(response.spaceId).toBeDefined()
+})
+  test("User is not able to create a space without mapId and dimensions", async () => {
+    const response = await axios.post(`${BACKEND_URL}/api/v1/space`, {
+      name: "Test",
+    });
+    expect(response.statusCode).toBe(400);
+  });
 
-  test("User is not able to create a space without mapId and dimensions",async()=>{
-        const response = await axios.post(`${BACKEND_URL}/api/v1/space`{
-            "name": "Test",
-        })
-        expect(response.statusCode).toBe(400);
-  })
-
+  test("User is not able to delete the space that doesnt exists", async () => {
+    const response = await axios.delete( 
+      `${BACKEND_URL}/api/v1/space/randomIdDoesntExists`,
+      {
+        name: "Test",
+      }
+    );
+  });
 });
