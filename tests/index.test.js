@@ -312,4 +312,14 @@ test("User is able to create a space without mapId (empty space)",async()=>{
       }
     );
   });
+  test("User should not be able to delete a space created by another user",async()=>{
+     const response = await axios.post(`${BACKEND_URL}/api/v1/space`,{
+        "name" : "Test",
+        "dimensions" : "100*200",
+     },{
+        headers:{
+            authorization : `$ Bearer ${userToken}`
+        }
+     })
+  })
 });
