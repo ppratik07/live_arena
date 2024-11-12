@@ -321,5 +321,11 @@ test("User is able to create a space without mapId (empty space)",async()=>{
             authorization : `$ Bearer ${userToken}`
         }
      })
+     const deleteResponse = await axios.post(`${BACKEND_URL}/api/v1/space/${response.data.spaceId}`,{
+        headers:{
+            authorization : `$ Bearer ${adminToken}`
+        }
+     })
+     expect(deleteResponse.statusCode).toBe(400);
   })
 });
