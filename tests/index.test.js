@@ -201,7 +201,7 @@ describe("Space information", () => {
     const userSignupRespone = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
       username,
       password,
-      type: "admin",
+      type: "user",
     });
     userId = userSignupRespone.data.userId;
 
@@ -348,3 +348,6 @@ test("User is able to create a space without mapId (empty space)",async()=>{
      expect(filteredSpace).toBeDefined();
   })
 });
+describe("Arena Endpoints",()=>{
+
+})
