@@ -345,6 +345,6 @@ test("User is able to create a space without mapId (empty space)",async()=>{
      });
      const filteredSpace = response.data.space.find(x=>x.id ==spaceCreatedResponse.spaceId);
      expect(response.data.spaces.length).toBe(1);
-     expect(filteredSpace).toBeDefined()
+     expect(filteredSpace).toBeDefined();
   })
 });
