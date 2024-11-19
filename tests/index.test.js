@@ -199,7 +199,7 @@ describe("Space information", () => {
     adminToken = response.data.token;
     // User Login
     const userSignupRespone = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
-      username,
+      username: username + '-user',
       password,
       type: "user",
     });
@@ -208,7 +208,7 @@ describe("Space information", () => {
     const userSignInresponse = await axios.post(
       `${BACKEND_URL}/api/v1/signin`,
       {
-        username,
+        username : username + '-user',
         password,
       }
     );
@@ -368,13 +368,13 @@ describe("Arena Endpoints",()=>{
       adminId = signupRespone.data.userId;
   
       const response = await axios.post(`${BACKEND_URL}/api/v1/signin`, {
-        username,
+        username : username + '-user',
         password,
       });
       adminToken = response.data.token;
       // User Login
       const userSignupRespone = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
-        username,
+        username : username + '-user',
         password,
         type: "user",
       });
@@ -383,7 +383,7 @@ describe("Arena Endpoints",()=>{
       const userSignInresponse = await axios.post(
         `${BACKEND_URL}/api/v1/signin`,
         {
-          username,
+          username : username + '-user',
           password,
         }
       );
@@ -453,5 +453,4 @@ describe("Arena Endpoints",()=>{
       );
       mapId = map.id;
     });
-
 });
