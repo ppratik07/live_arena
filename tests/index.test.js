@@ -383,7 +383,7 @@ describe("Arena Endpoints",()=>{
       const userSignInresponse = await axios.post(
         `${BACKEND_URL}/api/v1/signin`,
         {
-          username : username + '-user',
+          username : username + '-user' ,
           password,
         }
       );
@@ -451,6 +451,15 @@ describe("Arena Endpoints",()=>{
           },
         }
       );
+      const space = await axios.post(`${BACKEND_URL}/api/v1/`,{
+        "name" : "test",
+        "dimensions" : "100*200",
+        "mapId":"map1"
+      },{
+        headers :{
+            "authorization" : `Bearer ${userToken}`
+        }
+      })
       mapId = map.id;
     });
 });
